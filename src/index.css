@@ -60,16 +60,4 @@ section.language-list {
     gap: 4.5px;
 }
 
-.language {
-    display: flex;
-    height: 25px;
-    font-weight: 700;
-    font-size: 0.75rem;
-    max-width: 100px;
-    border-radius: 3px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-
 

@@ -1,5 +1,4 @@
 import React from "react"
-import Language from "./components/language"
 import { languages } from "./languages"
 
 /**
@@ -10,11 +9,19 @@ import { languages } from "./languages"
  */
 export default function Hangman() {
     const languageElements = languages.map((language) => {
-        return <Language    
-                    name={language.name}
-                    backgroundColor={language.backgroundColor}
-                    color={language.color}
-                />
+        const styles = {
+            backgroundColor: language.backgroundColor,
+            color: language.color
+        }
+        return (
+            <span 
+                style={styles} 
+                className="langauge"
+                key={language.name}
+            >
+                {language.name}
+            </span>
+        )
     })
 
     return (
