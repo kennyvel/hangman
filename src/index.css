@@ -55,11 +55,21 @@ section.game-status p {
 
 section.language-list {
     display: flexbox;
-    max-width: 350px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4.5px;
 }
 
 .language {
-
+    display: flex;
+    height: 25px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    max-width: 100px;
+    border-radius: 3px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 

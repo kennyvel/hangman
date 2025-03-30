@@ -1,6 +1,6 @@
 import React from "react"
 import Language from "./components/language"
-import languageData from "./languages"
+import { languages } from "./languages"
 
 /**
  * Goal: Build out the main parts of our app
@@ -9,7 +9,7 @@ import languageData from "./languages"
  * and description. Startin' out easy 🙂🚶‍➡️
  */
 export default function Hangman() {
-    const languageElements = languageData.map((language) => {
+    const languageElements = languages.map((language) => {
         return <Language    
                     name={language.name}
                     backgroundColor={language.backgroundColor}

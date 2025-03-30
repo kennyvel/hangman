@@ -1,4 +1,4 @@
-export default [
+export const languages = [
     {
         name: "HTML",
         backgroundColor: "#E2680F",
