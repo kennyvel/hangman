@@ -1,12 +1,6 @@
 import React from "react"
 import { languages } from "./languages"
-
-/**
- * Goal: Build out the main parts of our app
- * 
- * Challenge: Add a header with the game title
- * and description. Startin' out easy 🙂🚶‍➡️
- */
+ 
 export default function Hangman() {
     const languageElements = languages.map((language) => {
         const styles = {
@@ -16,7 +10,7 @@ export default function Hangman() {
         return (
             <span 
                 style={styles} 
-                className="langauge"
+                className="language"
                 key={language.name}
             >
                 {language.name}
