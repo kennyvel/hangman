@@ -2,7 +2,23 @@ import React from "react"
 import { languages } from "./languages"
  
 export default function Hangman() {
-    const languageElements = languages.map((language) => {
+    const [currentWord, setCurrentWord] = React.useState("react")
+    // Map over the letters of the word into an array of letters and display
+    // each one as a span
+
+    const letterElements = [...currentWord].map((letter, index) => {
+        return (
+            <span
+                key={index}
+                className="letter"
+            >
+                {letter.toUpperCase()}
+            </span>
+        )
+    })
+
+
+    const languageElements = languages.map((language, index) => {
         const styles = {
             backgroundColor: language.backgroundColor,
             color: language.color
@@ -32,6 +48,12 @@ export default function Hangman() {
             <section className="language-list">
                 {languageElements}
             </section>
+            <section className="word-guess">
+                {letterElements}
+            </section>
+            <section className="keyboard">
+            </section>
+            {/* <button className="confirm-guess"/> */}
         </main>
     )
 }

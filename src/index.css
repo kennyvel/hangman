@@ -55,7 +55,7 @@ section.game-status p {
 section.language-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 4.5px;
+    gap: 1.5px;
     justify-content: center;
     max-width: 350px;
 }
@@ -63,6 +63,23 @@ section.language-list {
 span.language {
     border-radius: 3px;
     padding: 4.5px;
+}
+
+section.word-guess {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+}
+
+span.letter {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: #323232;
+    border-bottom: 1px solid #F9F4DA;
 }
 
 
