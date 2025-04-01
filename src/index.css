@@ -27,6 +27,7 @@ header > p {
     font-size: 0.875rem;
     font-weight: 500;
     max-width: 350px;
+    margin: 0 auto;
     color: #8E8E8E;
 }
 
@@ -40,24 +41,26 @@ section.game-status {
     margin-block: 30px
 }
 
-section.game-status h2 {
+section.game-status > h2 {
     margin: 5px;
     font-size: 1.25rem;
     font-weight: 500;
 }
 
-section.game-status p {
+section.game-status > p {
     font-size: 1rem;
     font-weight: 500;
     margin: 5px;
 }
 
 section.language-list {
+    max-width: 350px;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     gap: 1.5px;
     justify-content: center;
-    max-width: 350px;
+    margin-bottom: 36px;
 }
 
 span.language {
@@ -76,10 +79,10 @@ span.letter {
     height: 40px;
     display: flex;
     justify-content: center;
-    text-align: center;
     align-items: center;
     background-color: #323232;
     border-bottom: 1px solid #F9F4DA;
+    font-size: 1.125rem;
 }
 
 
