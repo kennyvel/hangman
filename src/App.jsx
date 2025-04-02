@@ -40,11 +40,10 @@ export default function Hangman() {
     })
 
     // Map over alphabet and display it as a keyboard
-    const keyboard = alphabet.split("").map((letter, index) => {
+    const keyboard = alphabet.split("").map((letter) => {
         return (
             <button
-                key={index}
-                className="key"
+                key={letter}
                 onClick={() => handlePress(letter)}
             >
                 {letter.toUpperCase()}
