@@ -72,6 +72,7 @@ section.word-guess {
     display: flex;
     gap: 2px;
     justify-content: center;
+    margin-bottom: 36px;
 }
 
 span.letter {
@@ -83,6 +84,26 @@ span.letter {
     background-color: #323232;
     border-bottom: 1px solid #F9F4DA;
     font-size: 1.125rem;
+}
+
+section.keyboard {
+    max-width: 480px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+button.key {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FCBA29;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    color: #1E1E1E;
 }
 
 

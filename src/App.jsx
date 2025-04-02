@@ -3,22 +3,15 @@ import { languages } from "./languages"
  
 export default function Hangman() {
     const [currentWord, setCurrentWord] = React.useState("react")
-    // Map over the letters of the word into an array of letters and display
-    // each one as a span
 
-    const letterElements = [...currentWord].map((letter, index) => {
-        return (
-            <span
-                key={index}
-                className="letter"
-            >
-                {letter.toUpperCase()}
-            </span>
-        )
-    })
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-
-    const languageElements = languages.map((language, index) => {
+    const handlePress = (buttonText) => {
+        console.log(buttonText)
+    }
+    
+    // Map over languages and display each one as a span to display amount of lives/guesses
+    const languageElements = languages.map((language) => {
         const styles = {
             backgroundColor: language.backgroundColor,
             color: language.color
@@ -31,6 +24,31 @@ export default function Hangman() {
             >
                 {language.name}
             </span>
+        )
+    })
+
+    // Map over the letters of the word into an array of letters and display each one as a span
+    const letterElements = currentWord.split("").map((letter, index) => {
+        return (
+            <span
+                key={index}
+                className="letter"
+            >
+                {letter.toUpperCase()}
+            </span>
+        )
+    })
+
+    // Map over alphabet and display it as a keyboard
+    const keyboard = alphabet.split("").map((letter, index) => {
+        return (
+            <button
+                key={index}
+                className="key"
+                onClick={() => handlePress(letter)}
+            >
+                {letter.toUpperCase()}
+            </button>
         )
     })
 
@@ -52,6 +70,7 @@ export default function Hangman() {
                 {letterElements}
             </section>
             <section className="keyboard">
+                {keyboard}
             </section>
             {/* <button className="confirm-guess"/> */}
         </main>
