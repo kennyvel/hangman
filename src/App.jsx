@@ -7,6 +7,7 @@ export default function Hangman() {
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     const handlePress = (buttonText) => {
+        // TODO: Add buttons text (letter) to the letter elements array to be displayed
         console.log(buttonText)
     }
     
@@ -71,7 +72,7 @@ export default function Hangman() {
             <section className="keyboard">
                 {keyboard}
             </section>
-            {/* <button className="confirm-guess"/> */}
+            <button className="new-game">New Game</button>
         </main>
     )
 }
