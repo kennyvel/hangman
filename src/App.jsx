@@ -1,5 +1,6 @@
 import React from "react"
 import { languages } from "./languages"
+import { clsx } from 'clsx'
  
 export default function Hangman() {
     const [currentWord, setCurrentWord] = React.useState("react")
@@ -41,6 +42,7 @@ export default function Hangman() {
                 key={index}
                 className="letter"
             >
+                {/* TODO: Prevent the letters from the word from being rendered. Only rendered at the moment for testing */}
                 {letter.toUpperCase()}
             </span>
         )
@@ -48,9 +50,19 @@ export default function Hangman() {
 
     // Map over alphabet and display it as a keyboard
     const keyboard = alphabet.split("").map((letter) => {
+        const isGuessed = currentGuesses.includes(letter)
+        const isCorrect = isGuessed && currentWord.includes(letter)
+        const isWrong = isGuessed && !currentWord.includes(letter)
+        // Using clsx to conditionally add class names to the button for the background color
+        // Will now turn the button green on correct guesses and red on incorrect guesses
+        const className = clsx({
+            correct: isCorrect,
+            wrong: isWrong
+        })
         return (
             <button
                 key={letter}
+                className={className}
                 onClick={() => addGuess(letter)}
             >
                 {letter.toUpperCase()}
