@@ -7,9 +7,14 @@ export default function Hangman() {
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-    function addGuess(buttonText) {
+    function addGuess(letter) {
         // TODO: Add buttons text (letter) to the letter elements array to be displayed
-        setCurrentGuesses(currentGuesses => [...currentGuesses, buttonText])
+        // Only add the guess if it isn't already in the array
+        setCurrentGuesses(currentGuesses => 
+            currentGuesses.includes(letter) ?
+                currentGuesses :
+                [...currentGuesses, letter]
+        )
     }
     
     // Map over languages and display each one as a span to display amount of lives/guesses
