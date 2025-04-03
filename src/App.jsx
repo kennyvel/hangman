@@ -3,12 +3,14 @@ import { languages } from "./languages"
  
 export default function Hangman() {
     const [currentWord, setCurrentWord] = React.useState("react")
+    const [currentGuesses, setCurrentGuesses] = React.useState([])
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     const handlePress = (buttonText) => {
         // TODO: Add buttons text (letter) to the letter elements array to be displayed
-        console.log(buttonText)
+        setCurrentGuesses(currentGuesses.concat(buttonText))
+        console.log(currentGuesses.concat(buttonText))
     }
     
     // Map over languages and display each one as a span to display amount of lives/guesses
@@ -18,10 +20,10 @@ export default function Hangman() {
             color: language.color
         }
         return (
-            <span 
+            <span
+                key={language.name}
                 style={styles} 
                 className="language"
-                key={language.name}
             >
                 {language.name}
             </span>
@@ -59,6 +61,7 @@ export default function Hangman() {
                 <p>Guess the word within 8 attempts to keep the 
                 programming world safe from Assembly!</p>
             </header>
+            {/* Using sections is likely more syntactically correct than using div */}
             <section className="game-status">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
