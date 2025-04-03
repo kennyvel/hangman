@@ -7,10 +7,9 @@ export default function Hangman() {
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-    const handlePress = (buttonText) => {
+    function addGuess(buttonText) {
         // TODO: Add buttons text (letter) to the letter elements array to be displayed
-        setCurrentGuesses(currentGuesses.concat(buttonText))
-        console.log(currentGuesses.concat(buttonText))
+        setCurrentGuesses(currentGuesses => [...currentGuesses, buttonText])
     }
     
     // Map over languages and display each one as a span to display amount of lives/guesses
@@ -47,7 +46,7 @@ export default function Hangman() {
         return (
             <button
                 key={letter}
-                onClick={() => handlePress(letter)}
+                onClick={() => addGuess(letter)}
             >
                 {letter.toUpperCase()}
             </button>
