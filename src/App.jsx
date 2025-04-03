@@ -43,7 +43,7 @@ export default function Hangman() {
                 className="letter"
             >
                 {/* TODO: Prevent the letters from the word from being rendered. Only rendered at the moment for testing */}
-                {letter.toUpperCase()}
+                {currentGuesses.includes(letter) ? letter.toUpperCase() : ""}
             </span>
         )
     })
