@@ -6,6 +6,9 @@ export default function Hangman() {
     const [currentWord, setCurrentWord] = React.useState("react")
     const [currentGuesses, setCurrentGuesses] = React.useState([])
 
+    const wrongGuessesCount = currentGuesses.filter(number => !currentWord.includes(number)).length
+    console.log(wrongGuessesCount)
+    
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuess(letter) {
@@ -42,7 +45,7 @@ export default function Hangman() {
                 key={index}
                 className="letter"
             >
-                {/* TODO: Prevent the letters from the word from being rendered. Only rendered at the moment for testing */}
+                {/* Only include the letter in the span when the letter is guessed so that it won't show while inspecting in the browser */}
                 {currentGuesses.includes(letter) ? letter.toUpperCase() : ""}
             </span>
         )
