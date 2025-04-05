@@ -2,12 +2,22 @@ import React from "react"
 import { languages } from "./languages"
 import { clsx } from 'clsx'
  
+
+/**
+ * TODO:
+ * - Farewell messages in status section
+ * - Fix accessibility issues
+ * - Make the new game button work
+ * - Choose a random word from a list of words instead of hard coding the word
+ * - Confetti drop when the user wins
+*/
+
 export default function Hangman() {
     const [currentWord, setCurrentWord] = React.useState("react")
     const [currentGuesses, setCurrentGuesses] = React.useState([])
 
     const wrongGuessesCount = currentGuesses.filter(number => !currentWord.includes(number)).length
-    const isGameWon = currentWord.split("").every(letter => guessedLetter.includes(letter))
+    const isGameWon = currentWord.split("").every(letter => currentGuesses.includes(letter))
     const isGameLost = wrongGuessesCount >= languages.length - 1
     const isGameOver = isGameWon || isGameLost
 
