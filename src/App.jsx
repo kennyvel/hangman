@@ -117,6 +117,11 @@ export default function Hangman() {
         }
     }
 
+    function newGame() {
+        setCurrentGuesses([])
+        // Might also need to change the word here, we will see
+    }
+
     return (
         <main>
             <header>
@@ -137,7 +142,7 @@ export default function Hangman() {
             <section className="keyboard">
                 {keyboard}
             </section>
-            {isGameOver && <button className="new-game">New Game</button>}
+            {isGameOver && <button className="new-game" onClick={newGame}>New Game</button>}
         </main>
     )
 }
