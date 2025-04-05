@@ -89,7 +89,7 @@ export default function Hangman() {
             <button
                 key={letter}
                 className={classNames}
-                onClick={() => addGuess(letter)}
+                onClick={isGameOver ? undefined : () => addGuess(letter)}
             >
                 {letter.toUpperCase()}
             </button>
