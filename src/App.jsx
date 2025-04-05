@@ -7,12 +7,10 @@ export default function Hangman() {
     const [currentGuesses, setCurrentGuesses] = React.useState([])
 
     const wrongGuessesCount = currentGuesses.filter(number => !currentWord.includes(number)).length
-    console.log(wrongGuessesCount)
-    
+
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuess(letter) {
-        // TODO: Add buttons text (letter) to the letter elements array to be displayed
         // Only add the guess if it isn't already in the array
         setCurrentGuesses(currentGuesses => 
             currentGuesses.includes(letter) ?
@@ -22,16 +20,22 @@ export default function Hangman() {
     }
     
     // Map over languages and display each one as a span to display amount of lives/guesses
-    const languageElements = languages.map((language) => {
+    const languageElements = languages.map((language, index) => {
         const styles = {
             backgroundColor: language.backgroundColor,
             color: language.color
         }
+        // Conditionally add "lost" class name on the languages for incorrect guesses
+        const isLost = index < wrongGuessesCount
+        const classNames = clsx({
+            language: true,
+            lost: isLost 
+        })
         return (
             <span
                 key={language.name}
                 style={styles} 
-                className="language"
+                className={classNames}
             >
                 {language.name}
             </span>
@@ -58,14 +62,14 @@ export default function Hangman() {
         const isWrong = isGuessed && !currentWord.includes(letter)
         // Using clsx to conditionally add class names to the button for the background color
         // Will now turn the button green on correct guesses and red on incorrect guesses
-        const className = clsx({
+        const classNames = clsx({
             correct: isCorrect,
             wrong: isWrong
         })
         return (
             <button
                 key={letter}
-                className={className}
+                className={classNames}
                 onClick={() => addGuess(letter)}
             >
                 {letter.toUpperCase()}
@@ -94,7 +98,7 @@ export default function Hangman() {
             <section className="keyboard">
                 {keyboard}
             </section>
-            <button className="new-game">New Game</button>
+            {isGameOver && <button className="new-game">New Game</button>}
         </main>
     )
 }
