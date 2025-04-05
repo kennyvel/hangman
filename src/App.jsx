@@ -7,6 +7,9 @@ export default function Hangman() {
     const [currentGuesses, setCurrentGuesses] = React.useState([])
 
     const wrongGuessesCount = currentGuesses.filter(number => !currentWord.includes(number)).length
+    const isGameWon = currentWord.split("").every(letter => guessedLetter.includes(letter))
+    const isGameLost = wrongGuessesCount >= languages.length - 1
+    const isGameOver = isGameWon || isGameLost
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
@@ -77,6 +80,33 @@ export default function Hangman() {
         )
     })
 
+    const gameStatusClassNames = clsx("game-status", {
+        won: isGameWon,
+        lost: isGameLost
+    })
+
+    function renderGameStatus() {
+        if(!isGameOver) {
+            return null
+        }
+        if(isGameWon) {
+            return (
+                <>
+                    <h2>You win!</h2>
+                    <p>Well done! 🎉</p>
+                </>
+            )
+        }
+        else {
+            return (
+                <>
+                    <h2>Game over!</h2>
+                    <p>You lose! Better start learning Assembly 😭</p>
+                </>
+            )
+        }
+    }
+
     return (
         <main>
             <header>
@@ -85,9 +115,8 @@ export default function Hangman() {
                 programming world safe from Assembly!</p>
             </header>
             {/* Using sections is likely more syntactically correct than using div */}
-            <section className="game-status">
-                <h2>You win!</h2>
-                <p>Well done! 🎉</p>
+            <section className={gameStatusClassNames}>
+                {renderGameStatus()}
             </section>
             <section className="language-list">
                 {languageElements}
