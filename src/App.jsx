@@ -1,11 +1,12 @@
 import React from "react"
 import { languages } from "./languages"
 import { clsx } from 'clsx'
+import { getFarewellText } from "./utils"
  
-
 /**
  * TODO:
- * - Farewell messages in status section
+ * - ✅ Farewell messages in status section
+ * - Disable keyboard when the game is over
  * - Fix accessibility issues
  * - Make the new game button work
  * - Choose a random word from a list of words instead of hard coding the word
@@ -13,14 +14,19 @@ import { clsx } from 'clsx'
 */
 
 export default function Hangman() {
+    // State values
     const [currentWord, setCurrentWord] = React.useState("react")
     const [currentGuesses, setCurrentGuesses] = React.useState([])
 
+    // Derived values
     const wrongGuessesCount = currentGuesses.filter(number => !currentWord.includes(number)).length
     const isGameWon = currentWord.split("").every(letter => currentGuesses.includes(letter))
     const isGameLost = wrongGuessesCount >= languages.length - 1
     const isGameOver = isGameWon || isGameLost
+    const lastGuessedLetter = currentGuesses[currentGuesses.length - 1]
+    const isMostRecentGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
 
+    // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuess(letter) {
@@ -92,12 +98,19 @@ export default function Hangman() {
 
     const gameStatusClassNames = clsx("game-status", {
         won: isGameWon,
-        lost: isGameLost
+        lost: isGameLost,
+        farewell: !isGameOver && isMostRecentGuessWrong
     })
 
     function renderGameStatus() {
-        if(!isGameOver) {
-            return null
+        if(!isGameOver && isMostRecentGuessWrong) {
+            return (
+                <p 
+                    className="farewell-message"
+                >
+                    {getFarewellText(languages[wrongGuessesCount - 1].name)}
+                </p>
+            )
         }
         if(isGameWon) {
             return (
@@ -107,7 +120,7 @@ export default function Hangman() {
                 </>
             )
         }
-        else {
+        if(isGameLost) {
             return (
                 <>
                     <h2>Game over!</h2>
@@ -115,11 +128,12 @@ export default function Hangman() {
                 </>
             )
         }
+        return null
     }
 
     function newGame() {
         setCurrentGuesses([])
-        // Might also need to change the word here, we will see
+        // Might also need to change the word here when we move on from the hard coded word
     }
 
     return (
