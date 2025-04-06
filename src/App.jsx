@@ -5,11 +5,8 @@ import { getFarewellText } from "./utils"
  
 /**
  * TODO:
- * - ✅ Farewell messages in status section
- * - Disable keyboard when the game is over
- * - Fix accessibility issues
- * - Make the new game button work
  * - Choose a random word from a list of words instead of hard coding the word
+ * - Make the new game button work
  * - Confetti drop when the user wins
 */
 
@@ -20,8 +17,9 @@ export default function Hangman() {
 
     // Derived values
     const wrongGuessesCount = currentGuesses.filter(number => !currentWord.includes(number)).length
+    const numLivesLeft = languages.length - 1 - wrongGuessesCount
     const isGameWon = currentWord.split("").every(letter => currentGuesses.includes(letter))
-    const isGameLost = wrongGuessesCount >= languages.length - 1
+    const isGameLost = numLivesLeft == 0
     const isGameOver = isGameWon || isGameLost
     const lastGuessedLetter = currentGuesses[currentGuesses.length - 1]
     const isMostRecentGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
@@ -90,6 +88,8 @@ export default function Hangman() {
                 key={letter}
                 className={classNames}
                 disabled={isGameOver}
+                aria-disabled={currentGuesses.includes(letter)}
+                aria-label={`Letter ${letter}`}
                 onClick={() => addGuess(letter)}
             >
                 {letter.toUpperCase()}
@@ -144,20 +144,53 @@ export default function Hangman() {
                 <p>Guess the word within 8 attempts to keep the 
                 programming world safe from Assembly!</p>
             </header>
+            
             {/* Using sections is likely more syntactically correct than using div */}
-            <section className={gameStatusClassNames}>
+            <section 
+                aria-live="polite" 
+                role="status" 
+                className={gameStatusClassNames}
+            >
                 {renderGameStatus()}
             </section>
+
             <section className="language-list">
                 {languageElements}
             </section>
+
             <section className="word-guess">
                 {letterElements}
             </section>
+
+            {/* Combined aria-live section for status updates that is visually-hidden */}
+            <section 
+                className="sr-only"
+                aria-live="polite"
+                role="status"
+            >
+                <p>
+                    {currentWord.includes(lastGuessedLetter) ? 
+                        `Correct! The letter ${lastGuessedLetter} is in the word.` :
+                        `Sorry the letter ${lastGuessedLetter} is not in the word.`
+                    }
+                    You have {numLivesLeft} attempts left.
+                </p>
+                {/* Adding periods to the strings potentially give the screen reader a bit of a pause after reading out each letter or blank space */}
+                <p>Current word: {currentWord.split("").map(letter =>
+                currentGuesses.includes(letter) ? letter + "." : "blank.")
+                .join(" ")}</p>
+            </section>
+
             <section className="keyboard">
                 {keyboard}
             </section>
-            {isGameOver && <button className="new-game" onClick={newGame}>New Game</button>}
+
+            {<button 
+                className="new-game" 
+                onClick={newGame}
+            >
+                New Game
+            </button> && isGameOver}
         </main>
     )
 }
