@@ -1,18 +1,17 @@
 import React from "react"
 import { languages } from "./languages"
 import { clsx } from 'clsx'
-import { getFarewellText } from "./utils"
+import { getFarewellText, getWord } from "./utils"
  
 /**
  * TODO:
- * - Choose a random word from a list of words instead of hard coding the word
  * - Make the new game button work
  * - Confetti drop when the user wins
 */
 
 export default function Hangman() {
     // State values
-    const [currentWord, setCurrentWord] = React.useState("react")
+    const [currentWord, setCurrentWord] = React.useState(() => getWord())
     const [currentGuesses, setCurrentGuesses] = React.useState([])
 
     // Derived values
@@ -144,7 +143,7 @@ export default function Hangman() {
                 <p>Guess the word within 8 attempts to keep the 
                 programming world safe from Assembly!</p>
             </header>
-            
+
             {/* Using sections is likely more syntactically correct than using div */}
             <section 
                 aria-live="polite" 
