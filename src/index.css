@@ -124,6 +124,10 @@ span.letter {
     font-size: 1.125rem;
 }
 
+span.missed-letter {
+    color: #EC5D49;
+}
+
 section.keyboard {
     max-width: 480px;
     display: flex;

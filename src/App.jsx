@@ -6,6 +6,7 @@ import { getFarewellText, getWord } from "./utils"
 /**
  * TODO:
  * - Make the new game button work
+ * - Reveal the word when the player loses the game
  * - Confetti drop when the user wins
 */
 
@@ -60,13 +61,19 @@ export default function Hangman() {
 
     // Map over the letters of the word into an array of letters and display each one as a span
     const letterElements = currentWord.split("").map((letter, index) => {
+        const shouldRevealLetter = isGameLost || currentGuesses.includes(letter)
+        const classNames = clsx(
+            isGameLost && !currentGuesses.includes(letter) && "missed-letter",
+            "letter"
+        )
         return (
             <span
                 key={index}
-                className="letter"
+                className={classNames}
             >
                 {/* Only include the letter in the span when the letter is guessed so that it won't show while inspecting in the browser */}
-                {currentGuesses.includes(letter) ? letter.toUpperCase() : ""}
+                {/* Reveal the entire word when the player loses the game */}
+                {shouldRevealLetter ? letter.toUpperCase() : ""}
             </span>
         )
     })
@@ -95,7 +102,7 @@ export default function Hangman() {
             </button>
         )
     })
-
+    // Conditionally render different styles for the game status
     const gameStatusClassNames = clsx("game-status", {
         won: isGameWon,
         lost: isGameLost,
@@ -133,7 +140,7 @@ export default function Hangman() {
 
     function newGame() {
         setCurrentGuesses([])
-        // Might also need to change the word here when we move on from the hard coded word
+        setCurrentWord(getWord())
     }
 
     return (
@@ -184,12 +191,14 @@ export default function Hangman() {
                 {keyboard}
             </section>
 
-            {<button 
-                className="new-game" 
-                onClick={newGame}
-            >
-                New Game
-            </button> && isGameOver}
+            {isGameOver && 
+                <button 
+                    className="new-game" 
+                    onClick={newGame}
+                >
+                    New Game
+                </button>
+            }
         </main>
     )
 }
