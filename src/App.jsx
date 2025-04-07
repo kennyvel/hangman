@@ -2,13 +2,7 @@ import React from "react"
 import { languages } from "./languages"
 import { clsx } from 'clsx'
 import { getFarewellText, getWord } from "./utils"
- 
-/**
- * TODO:
- * - Make the new game button work
- * - Reveal the word when the player loses the game
- * - Confetti drop when the user wins
-*/
+import Confetti from "react-confetti"
 
 export default function Hangman() {
     // State values
@@ -145,6 +139,13 @@ export default function Hangman() {
 
     return (
         <main>
+            {
+                isGameWon && 
+                    <Confetti
+                        recycle={false}
+                        numberOfPieces={1000} 
+                    />
+            }
             <header>
                 <h1>Assembly: Endgame</h1>
                 <p>Guess the word within 8 attempts to keep the 
